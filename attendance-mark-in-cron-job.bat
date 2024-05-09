@@ -1,0 +1,1 @@
+"C:\php\php.exe" -f "C:\Apache24\htdocs\EMS\attendance-mark-in-cron-job.php"
