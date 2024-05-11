@@ -48,7 +48,7 @@ else
                 <div class="brand-logo">
                   <img src="images/nic-logo.png">
                 </div>
-                <h4>Hello! let's get started in 2024</h4>
+                <h4>Hello! let's get started</h4>
                 <h6 class="font-weight-light">Sign in to continue.</h6>
                 <form class="pt-3" action="check-login.php" method="post">
                   <div class="form-group">
