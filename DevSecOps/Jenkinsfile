@@ -1,0 +1,61 @@
+pipeline {
+    
+    agent any
+    environment{
+        SONAR_HOME = tool "Sonar"
+    }
+    stages {  
+        stage("Code"){
+            steps{
+                git url: "https://github.com/rohanmore01/ems.git" , branch: "main"
+                echo "Code Cloned Successfully"
+            }
+        }
+        stage("SonarQube Analysis"){
+            steps{
+               withSonarQubeEnv("Sonar"){
+                   sh "$SONAR_HOME/bin/sonar-scanner -Dsonar.projectName=ems -Dsonar.projectKey=ems -X"
+               }
+            }
+        }
+        stage("SonarQube Quality Gates"){
+            steps{
+               timeout(time: 1, unit: "MINUTES"){
+                   waitForQualityGate abortPipeline: false
+               }
+            }
+        }
+        stage("OWASP"){
+            steps{
+                dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'OWASP'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
+        stage("Build & Test"){
+            steps{
+                sh 'docker build -t ems .'
+                echo "Code Built Successfully"
+            }
+        }
+        stage("Trivy"){
+            steps{
+                sh "trivy image ems"
+            }
+        }
+        stage("Push to Private Docker Hub Repo"){
+            steps{
+                withCredentials([usernamePassword(credentialsId:"dockerCred",passwordVariable:"dockerPass",usernameVariable:"dockerUser")]){
+                sh "docker login -u ${env.dockerUser} -p ${env.dockerPass}"
+                sh "docker tag ems ${env.dockerUser}/ems:latest"
+                sh "docker push ${env.dockerUser}/ems:latest"
+                }              
+            }
+        }
+        stage("Deploy"){
+            steps{
+                sh "docker-compose down && docker-compose up -d"
+                echo "App Deployed Successfully"
+            }
+        }
+    }
+}
