@@ -49,7 +49,7 @@ else
                   <img src="images/nic-logo.png">
                 </div>
                 <h4>Hello! let's get started</h4>
-                <h6 class="font-weight-light">Sign in to continue.</h6>
+                <h6 class="font-weight-light">Sign in to continue</h6>
                 <form class="pt-3" action="check-login.php" method="post">
                   <div class="form-group">
                     <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" required="" placeholder="Enter Email">
