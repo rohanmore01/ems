@@ -6,7 +6,7 @@
 
 3) docker run -d \
     --name mysql \
-    -v ems_db:/var/lib/mysql \
+    -v ems_ems_db:/var/lib/mysql \
     -v ./DATABASE_FILE/:/docker-entrypoint-initdb.d/ \
     --network=ems \
     -e MYSQL_DATABASE=ems \

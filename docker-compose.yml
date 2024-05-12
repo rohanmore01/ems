@@ -3,6 +3,7 @@ services:
   backend:
     build:
       context: .
+    image: ems
     container_name: "ems"
     volumes:
       - "./:/var/www/html"
