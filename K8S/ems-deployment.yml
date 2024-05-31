@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ems-deployment
+  labels:
+    app: ems-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ems-app
+  template:
+    metadata:
+      labels:
+        app: ems-app
+    spec:
+      containers:
+        - name: ems-app-container
+          image: rohanmore01/ems:latest
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
