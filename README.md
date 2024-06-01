@@ -31,6 +31,20 @@
 
 - To run this application using Kubernetes
 
-1. kubectl apply -f mysql-secrets.yml -f mysql-configMap.yml
+1. kubectl apply -f mysql-secrets.yml
 
-2. kubectl create configmap mysql-init-config --from-file=./DATABASE_FILE/ems.sql
+2. kubectl apply -f mysql-configMap.yml
+
+3. kubectl create configmap mysql-init-config --from-file=./DATABASE_FILE/ems.sql
+
+4. kubectl apply -f mysql-pv.yml
+
+5. kubectl apply -f mysql-pvc.yml
+
+6. kubectl apply -f mysql-deployment.yml
+
+7. kubectl apply -f ems-deployment.yml
+
+8. kubectl apply -f mysql-svc.yml
+
+9. kubectl apply -f ems-service.yml
