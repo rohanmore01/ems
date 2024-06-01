@@ -5,25 +5,32 @@ services:
       context: .
     image: ems
     container_name: "ems"
+    environment:
+      MYSQL_DATABASE_SERVICE: mysql
+      MYSQL_DATABASE: "ems"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "Admin@1234"
     volumes:
       - "./:/var/www/html"
     ports:
       - 80:80
       - 443:443
+    depends_on:
+      - mysql
   mysql:
     image: mysql
     container_name: "mysql"
     restart: always
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "Admin@1234"
+      MYSQL_DATABASE: "ems"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "Admin@1234"
     volumes:
       - ems_db:/var/lib/mysql
       - ./DATABASE_FILE/:/docker-entrypoint-initdb.d/
-    environment:
-      MYSQL_ROOT_PASSWORD: "Nic@123"
-      MYSQL_DATABASE: "ems"
-      MYSQL_USER: "user"
-      MYSQL_PASSWORD: "Nic@123"
   phpmyadmin:
     image: phpmyadmin
     container_name: "phpmyadmin"
