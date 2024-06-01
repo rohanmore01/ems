@@ -10,5 +10,5 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /home/rohan/ems/mysqldata        #This is your host path where your data will be stored. Make sure to create mysqldata directory in mentioned path
+    path: "/mnt/data"        # This is your host path where your data will be stored
     type: DirectoryOrCreate

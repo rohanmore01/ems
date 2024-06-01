@@ -17,21 +17,38 @@ spec:
       containers:
         - name: mysql-container
           image: mysql:latest
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: "Nic@123"
-            - name: MYSQL_DATABASE
-              value: "ems"
-            - name: MYSQL_USER
-              value: "admin"
-            - name: MYSQL_PASSWORD
-              value: "Nic@123"
+          env:    
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_ROOT_PASSWORD
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_USER 
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_PASSWORD
+          - name: MYSQL_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: MYSQL_DATABASE
           ports:
             - containerPort: 3306
           volumeMounts:
+            - name: mysql-initdb
+              mountPath: /docker-entrypoint-initdb.d
             - name: mysqldata
               mountPath: /var/lib/mysql         # this is your container path from where your data will be stored
       volumes:
+        - name: mysql-initdb
+          configMap:
+            name: mysql-init-config
         - name: mysqldata
           persistentVolumeClaim:
             claimName: mysql-pvc    # PVC claim name

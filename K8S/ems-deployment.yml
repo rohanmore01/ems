@@ -17,6 +17,27 @@ spec:
       containers:
         - name: ems-app-container
           image: rohanmore01/ems:latest
+          env:
+          - name: MYSQL_DATABASE_SERVICE
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: MYSQL_DATABASE_SERVICE
+          - name: MYSQL_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: MYSQL_DATABASE    
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_USER 
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_PASSWORD
           ports:
             - containerPort: 80
           imagePullPolicy: Always
