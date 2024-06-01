@@ -35,16 +35,14 @@
 
 2. kubectl apply -f mysql-configMap.yml
 
-3. kubectl create configmap mysql-init-config --from-file=./DATABASE_FILE/ems.sql
+3. kubectl apply -f mysql-pv.yml
 
-4. kubectl apply -f mysql-pv.yml
+4. kubectl apply -f mysql-pvc.yml
 
-5. kubectl apply -f mysql-pvc.yml
+5. kubectl apply -f mysql-deployment.yml
 
-6. kubectl apply -f mysql-deployment.yml
+6. kubectl apply -f ems-deployment.yml
 
-7. kubectl apply -f ems-deployment.yml
+7. kubectl apply -f mysql-svc.yml
 
-8. kubectl apply -f mysql-svc.yml
-
-9. kubectl apply -f ems-service.yml
+8. kubectl apply -f ems-service.yml
