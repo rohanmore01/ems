@@ -15,6 +15,8 @@ services:
     ports:
       - 80:80
       - 443:443
+    networks:
+      - ems_network
     depends_on:
       - mysql
   mysql:
@@ -31,11 +33,11 @@ services:
     volumes:
       - ems_db:/var/lib/mysql
       - ./DATABASE_FILE/:/docker-entrypoint-initdb.d/
+    networks:
+      - ems_network
   phpmyadmin:
     image: phpmyadmin
     container_name: "phpmyadmin"
-    links:
-      - mysql:mysql
     ports:
       - 8000:80
     depends_on:
@@ -43,6 +45,10 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
+    networks:
+      - ems_network
     restart: always
 volumes:
   ems_db:
+networks:
+  ems_network:
