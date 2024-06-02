@@ -46,3 +46,5 @@
 7. kubectl apply -f mysql-svc.yml
 
 8. kubectl apply -f ems-service.yml
+
+9. if Database Error Occured re-apply this cmd : kubectl apply -f mysql-configMap.yml
