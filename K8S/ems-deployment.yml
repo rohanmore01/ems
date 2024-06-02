@@ -22,7 +22,7 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: mysql-config
-                key: MYSQL_DATABASE_SERVICE
+                key: MYSQL_DATABASE_URL
           - name: MYSQL_DATABASE
             valueFrom:
               configMapKeyRef:

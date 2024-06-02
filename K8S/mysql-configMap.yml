@@ -4,4 +4,4 @@ metadata:
   name: mysql-config
 data:
   MYSQL_DATABASE: ems
-  MYSQL_DATABASE_SERVICE: mysql-service
+  MYSQL_DATABASE_URL: mysql-service
