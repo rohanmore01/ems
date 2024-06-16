@@ -19,6 +19,10 @@
 4. docker run -d \
    --name ems \
    --network=ems_network \
+   -e MYSQL_DATABASE_SERVICE= mysql \
+   -e MYSQL_DATABASE=ems \
+   -e MYSQL_USER=admin \
+   -e MYSQL_PASSWORD=Admin@1234 \
    -v ./:/var/www/html \
    -p 80:80 \
    ems
